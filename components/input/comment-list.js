@@ -1,21 +1,20 @@
-import classes from './comment-list.module.css';
+import { getStaticProps } from "../../pages/events/[eventId]";
+import classes from "./comment-list.module.css";
 
-function CommentList() {
+function CommentList(props) {
   return (
     <ul className={classes.comments}>
       {/* Render list of comments - fetched from API */}
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
-      <li>
-        <p>My comment is amazing!</p>
-        <div>
-          By <address>Maximilian</address>
-        </div>
-      </li>
+      {props.comments.length > 0
+        ? props.comments.map((data) => (
+            <li>
+              <p>{data.text}</p>
+              <div>
+                By <address>{data.name}</address>
+              </div>
+            </li>
+          ))
+        : null}
     </ul>
   );
 }
